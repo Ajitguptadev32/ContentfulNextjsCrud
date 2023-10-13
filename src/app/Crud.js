@@ -1,27 +1,27 @@
 import React from "react";
 import axios from "axios";
+const spaceId = process.env.CONTENTFUL_SPACE_ID;
+const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN;
 
-async function fetchApi() {
-   const cmaToken = "CFPAT-C1Wp2Xw6RNSxpSVwkD_5vi5k0JZKM0Uvlx_smVWMjJA";
-   const apiUrl = "https://api.contentful.com/spaces/szrrmdz31zy4/environments"; // Replace with your Contentful API URL
+const api = axios.create({
+   baseURL: `https://cdn.contentful.com/spaces/${spaceId}/environments/master/`,
+   headers: {
+      Authorization: `Bearer ${accessToken}`,
+   },
+});
 
-   const requestData = {
-      name: "My new environment name",
-   };
-
+export const getEntries = async (contentType) => {
    try {
-      const response = await axios.post(apiUrl, requestData, {
-         headers: {
-            Authorization: `Bearer ${cmaToken}`,
-            "Content-Type": "application/vnd.contentful.management.v1+json",
-         },
-      });
-
-      console.log("Environment created successfully:", response.data);
+      const response = await api.get(`entries?content_type=${contentType}`);
+      return response.data.items;
    } catch (error) {
-      console.error("Error creating environment:", error.message);
+      console.error("Error fetching entries:", error);
+      return [];
    }
-}
-export default async function Crud() {
+};
+
+const Crud = () => {
    return <div>Crud</div>;
-}
+};
+
+export default Crud;

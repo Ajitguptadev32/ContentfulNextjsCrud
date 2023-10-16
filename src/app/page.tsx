@@ -15,10 +15,13 @@ import { BlogPost } from "./services/blog.type.js";
 import Home from "./Home";
 import ContentfulApi from "./ContentfulApi.js";
 import ShowData from "./ShowData.js";
+import Api from "./Api.js";
+import InsertData from "./InsertData.js";
 export default async function page() {
    return (
       <div>
          <ShowData />
+         <InsertData />
       </div>
    );
 }

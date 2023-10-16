@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { createClient } from "contentful";
 const axios = require("axios");
 const contentful = require("contentful-management");
-
+import Link from "next/link";
 export const client = createClient({
    space: "szrrmdz31zy4",
    accessToken: "UQSi8GS9wx5qAF5EXUKFgS3qwAIkjOcPF9N-vTtnw4Q",
@@ -67,9 +67,9 @@ const ShowData = () => {
                      <td>{p.fields.description}</td>
 
                      <td>
-                        <button onClick={() => handleEdit(p.sys.id)}>
-                           Edit
-                        </button>{" "}
+                        <button>
+                           <Link href={`/EditData?id=${p.sys.id}`}>Edit</Link>
+                        </button>
                         /
                         <button onClick={(id) => handleDelete(p.sys.id)}>
                            Delete
